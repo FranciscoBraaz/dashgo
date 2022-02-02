@@ -6,6 +6,7 @@ import {
   SimpleGrid,
   VStack,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 import { Input } from '../../components/Form/Input';
 import { Header } from '../../components/Header';
@@ -18,13 +19,13 @@ export default function CreateUser() {
       <Flex w="100%" my="6" maxWidth={1480} max="auto" px="6">
         <Sidebar />
 
-        <Box flex="1" borderRadius={8} bg="gray.800" p="8">
+        <Box flex="1" borderRadius={8} bg="gray.800" p={['4', '8']}>
           <VStack spacing="8">
-            <SimpleGrid minChildWidth="240px" w="100%" spacing="8">
+            <SimpleGrid minChildWidth="240px" w="100%" spacing={['6', '8']}>
               <Input name="name" type="text" label="Nome" />
               <Input name="email" type="email" label="Email" />
             </SimpleGrid>
-            <SimpleGrid minChildWidth="240px" w="100%" spacing="8">
+            <SimpleGrid minChildWidth="240px" w="100%" spacing={['6', '8']}>
               <Input name="password" type="password" label="Senha" />
               <Input
                 name="password_confirmation"
@@ -35,7 +36,9 @@ export default function CreateUser() {
           </VStack>
           <Flex mt="8" justify="flex-end">
             <HStack spacing="4">
-              <Button colorScheme="whiteAlpha">Cancelar</Button>
+              <Link href="/users" passHref>
+                <Button colorScheme="whiteAlpha">Cancelar</Button>
+              </Link>
               <Button colorScheme="pink">Salvar</Button>
             </HStack>
           </Flex>
