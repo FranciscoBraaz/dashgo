@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   Icon,
+  Spinner,
   Table,
   Tbody,
   Td,
@@ -21,8 +22,16 @@ import { Header } from '../../components/Header';
 import { Pagination } from '../../components/Pagination';
 import { Sidebar } from '../../components/Sidebar';
 import { truncate } from '../../utils/truncate';
+import { useQuery } from 'react-query';
 
 export default function Users() {
+  const { data, isLoading, isError } = useQuery('users', async () => {
+    const response = await fetch('https://localhost:3000/api/users');
+    const data = await response.json();
+
+    return data;
+  });
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -60,51 +69,65 @@ export default function Users() {
             </Link>
           </Flex>
 
-          <Table colorScheme="whiteAlpha">
-            <Thead>
-              <Tr>
-                <Th px={['4', '4', '6']} color="gray.300" width="8">
-                  <Checkbox colorScheme="pink" />
-                </Th>
-                <Th>Usuários</Th>
-                {isWideVersion && <Th>Data de cadastro</Th>}
-                {isWideVersion && <Th width="8"></Th>}
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td px={['4', '4', '6']}>
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Francisco Braz</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      {isWideVersion
-                        ? 'francisco_braaz@hotmail.com'
-                        : truncate('francisco_braaz@hotmail.com', 10)}
-                    </Text>
-                  </Box>
-                </Td>
-                {isWideVersion && <Td>01 de Janeiro, 2022</Td>}
+          {isLoading ? (
+            <>
+              <Flex justify="center">
+                <Spinner />
+              </Flex>
+            </>
+          ) : isError ? (
+            <Flex justify="center">
+              <Text>Falha ao carregar usuários</Text>
+            </Flex>
+          ) : (
+            <>
+              <Table colorScheme="whiteAlpha">
+                <Thead>
+                  <Tr>
+                    <Th px={['4', '4', '6']} color="gray.300" width="8">
+                      <Checkbox colorScheme="pink" />
+                    </Th>
+                    <Th>Usuários</Th>
+                    {isWideVersion && <Th>Data de cadastro</Th>}
+                    {isWideVersion && <Th width="8"></Th>}
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td px={['4', '4', '6']}>
+                      <Checkbox colorScheme="pink" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Francisco Braz</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          {isWideVersion
+                            ? 'francisco_braaz@hotmail.com'
+                            : truncate('francisco_braaz@hotmail.com', 10)}
+                        </Text>
+                      </Box>
+                    </Td>
+                    {isWideVersion && <Td>01 de Janeiro, 2022</Td>}
 
-                {isWideVersion && (
-                  <Td>
-                    <Button
-                      as="a"
-                      size="sm"
-                      fontSize="sm"
-                      colorScheme="purple"
-                      leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                    >
-                      Editar
-                    </Button>
-                  </Td>
-                )}
-              </Tr>
-            </Tbody>
-          </Table>
-          <Pagination />
+                    {isWideVersion && (
+                      <Td>
+                        <Button
+                          as="a"
+                          size="sm"
+                          fontSize="sm"
+                          colorScheme="purple"
+                          leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
+                        >
+                          Editar
+                        </Button>
+                      </Td>
+                    )}
+                  </Tr>
+                </Tbody>
+              </Table>
+              <Pagination />
+            </>
+          )}
         </Box>
       </Flex>
     </Box>
