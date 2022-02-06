@@ -16,7 +16,7 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RiAddLine, RiPencilLine } from 'react-icons/ri';
 import { Header } from '../../components/Header';
 import { Pagination } from '../../components/Pagination';
@@ -25,7 +25,8 @@ import { truncate } from '../../utils/truncate';
 import { useUsers } from '../../hooks/useUsers';
 
 export default function Users() {
-  const { data, isLoading, isFetching, isError } = useUsers();
+  const [page, setPage] = useState(1);
+  const { data, isLoading, isFetching, isError } = useUsers(page);
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -85,7 +86,7 @@ export default function Users() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {data.map((user) => (
+                  {data.users.map((user) => (
                     <Tr key={user.id}>
                       <Td px={['4', '4', '6']}>
                         <Checkbox colorScheme="pink" />
@@ -121,8 +122,8 @@ export default function Users() {
               </Table>
               <Pagination
                 totalCountOfRegisters={200}
-                currentPage={5}
-                onPageChange={() => {}}
+                currentPage={page}
+                onPageChange={setPage}
               />
             </>
           )}
