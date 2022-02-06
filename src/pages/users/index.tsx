@@ -23,6 +23,7 @@ import { Pagination } from '../../components/Pagination';
 import { Sidebar } from '../../components/Sidebar';
 import { truncate } from '../../utils/truncate';
 import { useQuery } from 'react-query';
+import { api } from '../../services/api';
 
 interface UserProps {
   id: string;
@@ -35,8 +36,7 @@ export default function Users() {
   const { data, isLoading, isFetching, isError } = useQuery(
     'users',
     async () => {
-      const response = await fetch('https://localhost:3000/api/users');
-      const data = await response.json();
+      const { data } = await api.get('/users');
 
       const users = data.users.map((user: UserProps) => ({
         id: user.id,
