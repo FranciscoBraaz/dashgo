@@ -49,12 +49,20 @@ export function Sidebar() {
     <Box as="aside" w="64" mr="8">
       <Stack spacing="12" align="flex-start">
         <NavSection title="GERAL">
-          <NavLink icon={RiDashboardLine}>Dashboard</NavLink>
-          <NavLink icon={RiContactsLine}>Usuário</NavLink>
+          <NavLink href="/" icon={RiDashboardLine}>
+            Dashboard
+          </NavLink>
+          <NavLink href="/" icon={RiContactsLine}>
+            Usuário
+          </NavLink>
         </NavSection>
         <NavSection title="AUTOMAÇÃO">
-          <NavLink icon={RiInputMethodLine}>Formulários</NavLink>
-          <NavLink icon={RiGitMergeLine}>Automação</NavLink>
+          <NavLink href="/" icon={RiInputMethodLine}>
+            Formulários
+          </NavLink>
+          <NavLink href="/" icon={RiGitMergeLine}>
+            Automação
+          </NavLink>
         </NavSection>
       </Stack>
     </Box>
