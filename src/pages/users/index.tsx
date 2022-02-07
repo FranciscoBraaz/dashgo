@@ -22,7 +22,8 @@ import { Header } from '../../components/Header';
 import { Pagination } from '../../components/Pagination';
 import { Sidebar } from '../../components/Sidebar';
 import { truncate } from '../../utils/truncate';
-import { useUsers } from '../../hooks/useUsers';
+import { getUsers, useUsers } from '../../hooks/useUsers';
+import { GetServerSideProps } from 'next';
 
 export default function Users() {
   const [page, setPage] = useState(1);
