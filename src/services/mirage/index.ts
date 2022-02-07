@@ -1,4 +1,10 @@
-import { createServer, Factory, Model, Response } from 'miragejs';
+import {
+  ActiveModelSerializer,
+  createServer,
+  Factory,
+  Model,
+  Response,
+} from 'miragejs';
 import * as faker from '@faker-js/faker';
 
 type User = {
@@ -7,10 +13,20 @@ type User = {
   create_at: string;
 };
 
+function orderByDate(users: User[]) {
+  return users.sort((a, b) => {
+    return new Date(a.create_at) > new Date(b.create_at) ? 1 : -1;
+  });
+}
+
 export function makeServer() {
   const server = createServer({
     models: {
       user: Model.extend<Partial<User>>({}),
+    },
+
+    serializers: {
+      application: ActiveModelSerializer,
     },
 
     factories: {
@@ -43,10 +59,9 @@ export function makeServer() {
         const pageStart = (Number(page) - 1) * Number(per_page);
         const pageEnd = pageStart + Number(per_page);
 
-        const users = this.serialize(schema.all('user')).users.slice(
-          pageStart,
-          pageEnd,
-        );
+        let usersDb = this.serialize(schema.all('user')).users;
+
+        const users = orderByDate(usersDb).slice(pageStart, pageEnd);
 
         return new Response(200, { 'x-total-count': String(total) }, { users });
       });
