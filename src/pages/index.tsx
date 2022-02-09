@@ -4,24 +4,24 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '../components/FormComponents/Input';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useAuth } from '../contexts/AuthContext';
 
 type SignInFormData = {
-  email: string;
-  passworD: string;
+  name: string;
 };
 
 const signInSchema = yup.object().shape({
-  email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
-  password: yup.string().required('Senha obrigatória'),
+  name: yup.string().required('User obrigatório'),
 });
 
 export default function Home() {
+  const { userLogin } = useAuth();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInSchema),
   });
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await userLogin(values.name);
   };
 
   return (
@@ -38,18 +38,11 @@ export default function Home() {
       >
         <Stack spacing="4">
           <Input
-            name="email"
-            label="E-mail"
-            type="email"
-            {...register('email')}
-            error={formState.errors.email}
-          />
-          <Input
-            name="password"
-            label="Senha"
-            type="password"
-            {...register('password')}
-            error={formState.errors.password}
+            name="user"
+            label="Usuário"
+            type="text"
+            {...register('name')}
+            error={formState.errors.name}
           />
         </Stack>
 

@@ -4,8 +4,10 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { theme } from '../styles/theme';
 import { SidebarDrawerProvider } from '../contexts/SidebarDrawerContext';
 import { makeServer } from '../services/mirage';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 import { queryClient } from '../services/queryClient';
+import { AuthContext, AuthProvider } from '../contexts/AuthContext';
+import { ProtectRoute } from '../components/ProtectedRoute';
 
 // if (process.env.NODE_ENV === 'development') {
 
@@ -16,12 +18,15 @@ makeServer();
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <SidebarDrawerProvider>
-          <Component {...pageProps} />
-        </SidebarDrawerProvider>
-      </ChakraProvider>
-
+      <AuthProvider>
+        {/* <ProtectRoute> */}
+        <ChakraProvider theme={theme}>
+          <SidebarDrawerProvider>
+            <Component {...pageProps} />
+          </SidebarDrawerProvider>
+        </ChakraProvider>
+        {/* </ProtectRoute> */}
+      </AuthProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

@@ -83,7 +83,7 @@ export function makeServer() {
       });
 
       this.namespace = '';
-      this.passthrough();
+      this.passthrough('https://api.github.com/users/**');
     },
   });
 
