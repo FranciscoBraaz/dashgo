@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { RiAddLine, RiPencilLine } from 'react-icons/ri';
+import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri';
 import { Header } from '../../components/Header';
 import { Pagination } from '../../components/Pagination';
 import { Sidebar } from '../../components/Sidebar';
@@ -25,10 +25,12 @@ import { truncate } from '../../utils/truncate';
 import { getUsers, useUsers } from '../../hooks/useUsers';
 import { GetServerSideProps } from 'next';
 import { requireAuthentication } from '../../utils/requireAuthentication';
+import { api } from '../../services/api';
+import { queryClient } from '../../services/queryClient';
 
 export default function Users() {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching, isError } = useUsers(page);
+  const { data, isLoading, isFetching, isError, refetch } = useUsers(page);
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -37,8 +39,31 @@ export default function Users() {
 
   const isMediumVersion = useBreakpointValue({
     base: false,
+    md: true,
+  });
+
+  const isSmallVersion = useBreakpointValue({
+    base: false,
     sm: true,
   });
+
+  async function handleDelete(id: string) {
+    const response = await api.delete(`users/${id}`);
+    if (response.status === 204) {
+      queryClient.invalidateQueries('user');
+      refetch();
+    }
+  }
+
+  function formatEmail(defaultValue: string) {
+    if (isWideVersion || isMediumVersion) {
+      return defaultValue;
+    } else if (!isWideVersion && !isMediumVersion && isSmallVersion) {
+      return truncate(defaultValue, 20);
+    } else {
+      return truncate(defaultValue, 10);
+    }
+  }
 
   return (
     <Box>
@@ -64,7 +89,7 @@ export default function Users() {
                 pr={['0.4rem', '0.5rem']}
                 leftIcon={<Icon as={RiAddLine} fontSize="16" />}
               >
-                {isMediumVersion && 'Criar novo'}
+                {isSmallVersion && 'Criar novo'}
               </Button>
             </Link>
           </Flex>
@@ -102,30 +127,44 @@ export default function Users() {
                         <Box>
                           <Text fontWeight="bold">{user.name}</Text>
                           <Text fontSize="sm" color="gray.300">
-                            {isMediumVersion
-                              ? user.email
-                              : truncate(user.email, 10)}
+                            {formatEmail(user.email)}
                           </Text>
                         </Box>
                       </Td>
                       {isWideVersion && <Td>{user.created_at}</Td>}
 
-                      {isMediumVersion && (
-                        <Td style={{ textAlign: 'end' }}>
+                      {isSmallVersion && (
+                        <Td
+                          textAlign="end"
+                          display={!isWideVersion ? 'flex' : 'block'}
+                          flexDirection={!isWideVersion ? 'column' : 'unset'}
+                          alignItems={!isWideVersion ? 'flex-end' : 'unset'}
+                        >
                           <Link href={`/users/edit/${user.id}`} passHref>
                             <Button
                               as="a"
                               size="sm"
                               fontSize="sm"
                               colorScheme="purple"
-                              pr={['0.2rem', '0.5rem']}
+                              pr="0.2rem"
                               leftIcon={
                                 <Icon as={RiPencilLine} fontSize="16" />
                               }
-                            >
-                              {isWideVersion ? 'Editar' : ''}
-                            </Button>
+                            ></Button>
                           </Link>
+                          <Button
+                            as="a"
+                            size="sm"
+                            fontSize="sm"
+                            colorScheme="purple"
+                            pr="0.2rem"
+                            mt="0.3rem"
+                            cursor="pointer"
+                            onClick={() => handleDelete(user.id)}
+                            leftIcon={
+                              <Icon as={RiDeleteBinLine} fontSize="16" />
+                            }
+                          ></Button>
                         </Td>
                       )}
                     </Tr>

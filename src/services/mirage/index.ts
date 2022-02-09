@@ -75,7 +75,7 @@ export function makeServer() {
         let id = request.params.id;
 
         //@ts-ignore
-        return schema.users.find(id); // users in the second case
+        return schema.users.find(id);
       });
 
       this.post('/users');
@@ -85,6 +85,13 @@ export function makeServer() {
         let attrs = this.normalizedRequestAttrs();
         //@ts-ignore
         return schema.users.find(id).update(attrs);
+      });
+
+      //@ts-ignore
+      this.del('/users/:id', (schema, request) => {
+        let id = request.params.id;
+        //@ts-ignore
+        schema.users.find(id).destroy();
       });
 
       this.namespace = '';
