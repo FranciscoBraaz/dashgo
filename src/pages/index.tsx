@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 type SignInFormData = {
   name: string;
@@ -37,43 +38,51 @@ export default function Home() {
   };
 
   return (
-    <Flex w="100vw" h="100vh" align="center" justify="center">
-      {isLoadingAutoLogin ? (
-        <Spinner size="lg" />
-      ) : (
-        <Flex
-          as="form"
-          w="100%"
-          maxW={360}
-          bgColor="gray.800"
-          p="8"
-          borderRadius={8}
-          flexDir="column"
-          onSubmit={handleSubmit(handleSignIn)}
-        >
-          <Stack spacing="4">
-            <Input
-              name="user"
-              label="Usuário"
-              type="text"
-              {...register('name')}
-              error={formState.errors.name}
-            />
-          </Stack>
+    <>
+      <Head>
+        <title>Dash Go</title>
+        <meta name="description" content="Painel administrativo" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-          {/* <Link href="/dashboard" passHref> */}
-          <Button
-            colorScheme="pink"
-            mt="6"
-            type="submit"
-            size="lg"
-            isLoading={formState.isSubmitting}
+      <Flex w="100vw" h="100vh" align="center" justify="center">
+        {isLoadingAutoLogin ? (
+          <Spinner size="lg" />
+        ) : (
+          <Flex
+            as="form"
+            w="100%"
+            maxW={360}
+            bgColor="gray.800"
+            p="8"
+            borderRadius={8}
+            flexDir="column"
+            onSubmit={handleSubmit(handleSignIn)}
           >
-            Entrar
-          </Button>
-          {/* </Link> */}
-        </Flex>
-      )}
-    </Flex>
+            <Stack spacing="4">
+              <Input
+                name="user"
+                label="Usuário"
+                type="text"
+                {...register('name')}
+                error={formState.errors.name}
+              />
+            </Stack>
+
+            {/* <Link href="/dashboard" passHref> */}
+            <Button
+              colorScheme="pink"
+              mt="6"
+              type="submit"
+              size="lg"
+              isLoading={formState.isSubmitting}
+            >
+              Entrar
+            </Button>
+            {/* </Link> */}
+          </Flex>
+        )}
+      </Flex>
+    </>
   );
 }

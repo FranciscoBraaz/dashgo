@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { Form } from '../../components/Form';
 import { GetServerSideProps } from 'next';
 import { requireAuthentication } from '../../utils/requireAuthentication';
+import Head from 'next/head';
 
 type CreateUserFormData = {
   email: string;
@@ -47,13 +48,18 @@ export default function CreateUser() {
   };
 
   return (
-    <Box>
-      <Header />
-      <Flex w="100%" my="6" maxWidth={1480} max="auto" px="6">
-        <Sidebar />
-        <Form handleCallback={handleCreateUser} />
-      </Flex>
-    </Box>
+    <>
+      <Head>
+        <title>Usuários - criar | Dash Go</title>
+      </Head>
+      <Box>
+        <Header />
+        <Flex w="100%" my="6" maxWidth={1480} max="auto" px="6">
+          <Sidebar />
+          <Form handleCallback={handleCreateUser} />
+        </Flex>
+      </Box>
+    </>
   );
 }
 

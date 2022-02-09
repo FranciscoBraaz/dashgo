@@ -1,6 +1,7 @@
 import { Box, Flex, SimpleGrid, Spinner, Text, theme } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
@@ -78,38 +79,53 @@ export default function Dashboard() {
   }, [data, isFetching, options]);
 
   return (
-    <Flex flexDir="column">
-      <Header />
+    <>
+      <Head>
+        <title>Dashboard | Dash Go</title>
+      </Head>
+      <Flex flexDir="column">
+        <Header />
 
-      <Flex w="100%" maxW={1480} mx="auto" px="6" my="6">
-        <Sidebar />
+        <Flex w="100%" maxW={1480} mx="auto" px="6" my="6">
+          <Sidebar />
 
-        <SimpleGrid
-          height="fit-content"
-          flex="1"
-          gap="4"
-          minChildWidth="320px"
-          align="flex-start"
-        >
-          <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
-            <Text fontSize="lg" mb="4">
-              Inscritos da semana
-              {isLoading && <Spinner size="sm" ml="4" />}
-            </Text>
-            {/*@ts-ignore */}
-            <Chart options={options} series={series} height={160} type="area" />
-          </Box>
-          <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
-            <Text fontSize="lg" mb="4">
-              Inscritos da semana
-              {isLoading && <Spinner size="sm" ml="4" />}
-            </Text>
-            {/*@ts-ignore */}
-            <Chart options={options} series={series} height={160} type="area" />
-          </Box>
-        </SimpleGrid>
+          <SimpleGrid
+            height="fit-content"
+            flex="1"
+            gap="4"
+            minChildWidth="320px"
+            align="flex-start"
+          >
+            <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
+              <Text fontSize="lg" mb="4">
+                Inscritos da semana
+                {isLoading && <Spinner size="sm" ml="4" />}
+              </Text>
+              <Chart
+                //@ts-ignore
+                options={options}
+                series={series}
+                height={160}
+                type="area"
+              />
+            </Box>
+            <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
+              <Text fontSize="lg" mb="4">
+                Inscritos da semana
+                {isLoading && <Spinner size="sm" ml="4" />}
+              </Text>
+              <Chart
+                //@ts-ignore
+                options={options}
+                series={series}
+                height={160}
+                type="area"
+              />
+            </Box>
+          </SimpleGrid>
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 }
 

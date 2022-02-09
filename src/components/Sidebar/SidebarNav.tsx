@@ -32,7 +32,7 @@ export function SidebarNav() {
           Dashboard
         </NavLink>
         <NavLink icon={RiContactsLine} href="/users">
-          Usuário
+          Usuários
         </NavLink>
       </NavSection>
       <NavSection title="AUTOMAÇÃO">

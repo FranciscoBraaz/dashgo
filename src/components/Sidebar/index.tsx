@@ -66,7 +66,7 @@ export function Sidebar() {
             Dashboard
           </NavLink>
           <NavLink href="/users" icon={RiContactsLine}>
-            Usuário
+            Usuários
           </NavLink>
         </NavSection>
         <NavSection title="AUTOMAÇÃO">
