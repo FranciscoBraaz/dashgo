@@ -8,6 +8,8 @@ import { api } from '../../services/api';
 import { queryClient } from '../../services/queryClient';
 import { useRouter } from 'next/router';
 import { Form } from '../../components/Form';
+import { GetServerSideProps } from 'next';
+import { requireAuthentication } from '../../utils/requireAuthentication';
 
 type CreateUserFormData = {
   email: string;
@@ -54,3 +56,11 @@ export default function CreateUser() {
     </Box>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = requireAuthentication(
+  async (_ctx) => {
+    return {
+      props: {},
+    };
+  },
+);

@@ -24,6 +24,7 @@ import { Sidebar } from '../../components/Sidebar';
 import { truncate } from '../../utils/truncate';
 import { getUsers, useUsers } from '../../hooks/useUsers';
 import { GetServerSideProps } from 'next';
+import { requireAuthentication } from '../../utils/requireAuthentication';
 
 export default function Users() {
   const [page, setPage] = useState(1);
@@ -137,3 +138,11 @@ export default function Users() {
     </Box>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = requireAuthentication(
+  async (_ctx) => {
+    return {
+      props: {},
+    };
+  },
+);
