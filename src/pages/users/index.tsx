@@ -33,7 +33,7 @@ export default function Users() {
     base: false,
     lg: true,
   });
-  console.log(data);
+
   return (
     <Box>
       <Header />
@@ -102,19 +102,23 @@ export default function Users() {
                           </Text>
                         </Box>
                       </Td>
-                      {isWideVersion && <Td>{user.createdAt}</Td>}
+                      {isWideVersion && <Td>{user.created_at}</Td>}
 
                       {isWideVersion && (
                         <Td>
-                          <Button
-                            as="a"
-                            size="sm"
-                            fontSize="sm"
-                            colorScheme="purple"
-                            leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-                          >
-                            Editar
-                          </Button>
+                          <Link href={`/users/edit/${user.id}`} passHref>
+                            <Button
+                              as="a"
+                              size="sm"
+                              fontSize="sm"
+                              colorScheme="purple"
+                              leftIcon={
+                                <Icon as={RiPencilLine} fontSize="16" />
+                              }
+                            >
+                              Editar
+                            </Button>
+                          </Link>
                         </Td>
                       )}
                     </Tr>
