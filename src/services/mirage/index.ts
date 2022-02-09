@@ -48,6 +48,7 @@ export function makeServer() {
     },
 
     routes() {
+      this.passthrough('/_next/static/development/_devPagesManifest.json');
       this.namespace = 'api';
       this.timing = 750;
 

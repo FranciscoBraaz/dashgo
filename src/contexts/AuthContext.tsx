@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { api } from '../services/api';
+import Cookies from 'js-cookie';
+import { AxiosResponse } from 'axios';
 
 interface UserDataProps {
   email: string;
@@ -8,7 +10,7 @@ interface UserDataProps {
 }
 
 type AuthContextData = {
-  userLogin: (username: string) => Promise<void>;
+  userLogin: (username: string) => Promise<AxiosResponse>;
   isAuthenticated: boolean;
   isLoading: boolean;
   userData: UserDataProps;
@@ -22,8 +24,8 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (window.localStorage.getItem('userData')) {
-      setUserData(JSON.parse(sessionStorage.getItem('userData')));
+    if (Cookies.get('userData')) {
+      setUserData(JSON.parse(Cookies.get('userData')));
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
@@ -31,11 +33,18 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   async function userLogin(username: string) {
+    let responseData = null;
     setIsLoading(true);
     try {
       const response = await api.get(
         `https://api.github.com/users/${username}`,
+        {
+          headers: {
+            Authorization: `token ${process.env.NEXT_PUBLIC_GIT_TOKEN}`,
+          },
+        },
       );
+      responseData = response;
       const data = response.data;
       const dataUser = {
         name: data.name,
@@ -44,12 +53,14 @@ export const AuthProvider = ({ children }) => {
       };
       setUserData(dataUser);
       setIsAuthenticated(true);
-      window.localStorage.setItem('userData', JSON.stringify(dataUser));
+      Cookies.set('userData', JSON.stringify(dataUser));
     } catch (error) {
       setIsAuthenticated(false);
     } finally {
       setIsLoading(false);
     }
+
+    return responseData;
   }
 
   return (

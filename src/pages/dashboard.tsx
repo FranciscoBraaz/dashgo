@@ -1,8 +1,10 @@
 import { Box, Flex, SimpleGrid, Text, theme } from '@chakra-ui/react';
+import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
+import { requireAuthentication } from '../utils/requireAuthentication';
 
 const Chart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
@@ -92,3 +94,11 @@ export default function Dashboard() {
     </Flex>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = requireAuthentication(
+  async (_ctx) => {
+    return {
+      props: {},
+    };
+  },
+);

@@ -5,6 +5,7 @@ import { Input } from '../components/FormComponents/Input';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../contexts/AuthContext';
+import { useRouter } from 'next/router';
 
 type SignInFormData = {
   name: string;
@@ -16,12 +17,16 @@ const signInSchema = yup.object().shape({
 
 export default function Home() {
   const { userLogin } = useAuth();
+  const router = useRouter();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInSchema),
   });
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
-    await userLogin(values.name);
+    const response = await userLogin(values.name);
+    if (response.status === 200) {
+      router.push('/dashboard');
+    }
   };
 
   return (
