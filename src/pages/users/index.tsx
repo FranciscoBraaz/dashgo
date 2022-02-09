@@ -35,6 +35,11 @@ export default function Users() {
     lg: true,
   });
 
+  const isMediumVersion = useBreakpointValue({
+    base: false,
+    sm: true,
+  });
+
   return (
     <Box>
       <Header />
@@ -59,7 +64,7 @@ export default function Users() {
                 pr={['0.4rem', '0.5rem']}
                 leftIcon={<Icon as={RiAddLine} fontSize="16" />}
               >
-                {isWideVersion && 'Criar novo'}
+                {isMediumVersion && 'Criar novo'}
               </Button>
             </Link>
           </Flex>
@@ -97,7 +102,7 @@ export default function Users() {
                         <Box>
                           <Text fontWeight="bold">{user.name}</Text>
                           <Text fontSize="sm" color="gray.300">
-                            {isWideVersion
+                            {isMediumVersion
                               ? user.email
                               : truncate(user.email, 10)}
                           </Text>
@@ -105,19 +110,20 @@ export default function Users() {
                       </Td>
                       {isWideVersion && <Td>{user.created_at}</Td>}
 
-                      {isWideVersion && (
-                        <Td>
+                      {isMediumVersion && (
+                        <Td style={{ textAlign: 'end' }}>
                           <Link href={`/users/edit/${user.id}`} passHref>
                             <Button
                               as="a"
                               size="sm"
                               fontSize="sm"
                               colorScheme="purple"
+                              pr={['0.2rem', '0.5rem']}
                               leftIcon={
                                 <Icon as={RiPencilLine} fontSize="16" />
                               }
                             >
-                              Editar
+                              {isWideVersion ? 'Editar' : ''}
                             </Button>
                           </Link>
                         </Td>
