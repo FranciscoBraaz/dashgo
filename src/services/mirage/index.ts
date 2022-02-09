@@ -85,6 +85,7 @@ export function makeServer() {
 
       this.namespace = '';
       this.passthrough('https://api.github.com/users/**');
+      this.passthrough();
     },
   });
 

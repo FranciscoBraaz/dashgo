@@ -1,27 +1,35 @@
 import {
   Box,
+  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Icon,
   Stack,
+  Text,
   useBreakpointValue,
 } from '@chakra-ui/react';
+import Router, { useRouter } from 'next/router';
 import React from 'react';
 import {
   RiContactsLine,
   RiDashboardLine,
   RiGitMergeLine,
   RiInputMethodLine,
+  RiLogoutCircleLine,
 } from 'react-icons/ri';
+import { useAuth } from '../../contexts/AuthContext';
 import { useSidebarDrawer } from '../../contexts/SidebarDrawerContext';
 import { NavLink } from './NavLink';
 import { NavSection } from './NavSection';
 import { SidebarNav } from './SidebarNav';
 
 export function Sidebar() {
+  const { userLogout } = useAuth();
+  const router = useRouter();
   const isDrawerSidebar = useBreakpointValue({
     base: true,
     lg: false,
@@ -43,6 +51,11 @@ export function Sidebar() {
         </DrawerOverlay>
       </Drawer>
     );
+  }
+
+  async function handleLogout() {
+    await userLogout();
+    router.push('/');
   }
 
   return (
@@ -71,6 +84,20 @@ export function Sidebar() {
           >
             Automação
           </NavLink>
+        </NavSection>
+        <NavSection title="">
+          <Button
+            variant="link"
+            color="#fff"
+            display="flex"
+            align="center"
+            onClick={handleLogout}
+          >
+            <Icon as={RiLogoutCircleLine} fontSize="20" />
+            <Text ml="4" fontWeight="medium">
+              Sair
+            </Text>
+          </Button>
         </NavSection>
       </Stack>
     </Box>

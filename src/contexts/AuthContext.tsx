@@ -11,7 +11,9 @@ interface UserDataProps {
 
 type AuthContextData = {
   userLogin: (username: string) => Promise<AxiosResponse>;
+  userLogout: () => Promise<void>;
   isAuthenticated: boolean;
+  isLoadingAutoLogin: boolean;
   isLoading: boolean;
   userData: UserDataProps;
 };
@@ -22,13 +24,21 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userData, setUserData] = useState<UserDataProps>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAutoLogin, setIsLoadingAutoLogin] = useState(true);
 
   useEffect(() => {
     if (Cookies.get('userData')) {
       setUserData(JSON.parse(Cookies.get('userData')));
       setIsAuthenticated(true);
+
+      setTimeout(() => {
+        setIsLoadingAutoLogin(false);
+      }, 300);
     } else {
       setIsAuthenticated(false);
+      setTimeout(() => {
+        setIsLoadingAutoLogin(false);
+      }, 300);
     }
   }, []);
 
@@ -63,9 +73,21 @@ export const AuthProvider = ({ children }) => {
     return responseData;
   }
 
+  async function userLogout() {
+    Cookies.remove('userData');
+    setIsAuthenticated(false);
+  }
+
   return (
     <AuthContext.Provider
-      value={{ userLogin, isAuthenticated, isLoading, userData }}
+      value={{
+        userLogin,
+        userLogout,
+        isAuthenticated,
+        isLoadingAutoLogin,
+        isLoading,
+        userData,
+      }}
     >
       {children}
     </AuthContext.Provider>
