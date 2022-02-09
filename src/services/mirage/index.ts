@@ -65,7 +65,22 @@ export function makeServer() {
 
         return new Response(200, { 'x-total-count': String(total) }, { users });
       });
+
+      this.get('/users/:id', (schema, request) => {
+        let id = request.params.id;
+
+        //@ts-ignore
+        return schema.users.find(id); // users in the second case
+      });
+
       this.post('/users');
+
+      this.patch('/users/:id', function (schema, request) {
+        let id = request.params.id;
+        let attrs = this.normalizedRequestAttrs();
+        //@ts-ignore
+        return schema.users.find(id).update(attrs);
+      });
 
       this.namespace = '';
       this.passthrough();

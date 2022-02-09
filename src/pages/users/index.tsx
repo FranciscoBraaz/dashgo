@@ -33,7 +33,7 @@ export default function Users() {
     base: false,
     lg: true,
   });
-
+  console.log(data);
   return (
     <Box>
       <Header />
