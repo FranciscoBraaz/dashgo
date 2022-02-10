@@ -1,6 +1,6 @@
 ## Dash go - Um painel administrativo com NextJS e React Query
 
-###  🔽 Veja funcionando:
+###  🔽 Veja funcionando (utilize seu username do Github):
 [Deploy](https://dashgo-next.vercel.app/)
 #### Aplicação desenvolvida com o objetivo de praticar conceitos dentro dos ecossistemas do NextJS e React Query. 
 Consiste num painel administrativo, que utiliza o React Query para buscar, armazenar em cache, sincronizar/atualizar o estado do servidor e MirageJS para simular uma API. 
