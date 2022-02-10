@@ -45,30 +45,31 @@ export const AuthProvider = ({ children }) => {
   async function userLogin(username: string) {
     let responseData = null;
     setIsLoading(true);
-    try {
-      const response = await api.get(
-        `https://api.github.com/users/${username}`,
-        {
-          headers: {
-            Authorization: `token ${process.env.NEXT_PUBLIC_GIT_TOKEN}`,
-          },
+    await api
+      .get(`https://api.github.com/users/${username}`, {
+        headers: {
+          Authorization: `token ${process.env.NEXT_PUBLIC_GIT_TOKEN}`,
         },
-      );
-      responseData = response;
-      const data = response.data;
-      const dataUser = {
-        name: data.name,
-        email: data.email,
-        avatar: data.avatar_url,
-      };
-      setUserData(dataUser);
-      setIsAuthenticated(true);
-      Cookies.set('userData', JSON.stringify(dataUser));
-    } catch (error) {
-      setIsAuthenticated(false);
-    } finally {
-      setIsLoading(false);
-    }
+      })
+      .then((response) => {
+        responseData = response;
+        const data = response.data;
+        const dataUser = {
+          name: data.name,
+          email: data.email,
+          avatar: data.avatar_url,
+        };
+        setUserData(dataUser);
+        setIsAuthenticated(true);
+        Cookies.set('userData', JSON.stringify(dataUser));
+      })
+      .catch((error) => {
+        responseData = error.response;
+        setIsAuthenticated(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
 
     return responseData;
   }

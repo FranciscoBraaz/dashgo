@@ -1,4 +1,4 @@
-import { Button, Flex, Spinner, Stack } from '@chakra-ui/react';
+import { Box, Button, Flex, Spinner, Stack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Input } from '../components/FormComponents/Input';
@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../contexts/AuthContext';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 type SignInFormData = {
@@ -18,6 +18,7 @@ const signInSchema = yup.object().shape({
 });
 
 export default function Home() {
+  const [statusError, setStatusError] = useState('');
   const { userLogin, isAuthenticated, isLoadingAutoLogin, isLoading } =
     useAuth();
   const router = useRouter();
@@ -35,6 +36,8 @@ export default function Home() {
     const response = await userLogin(values.name);
     if (response.status === 200) {
       router.push('/dashboard');
+    } else {
+      setStatusError('Usuário não encontrado');
     }
   };
 
@@ -68,10 +71,20 @@ export default function Home() {
                 {...register('name')}
                 error={formState.errors.name}
                 isDisabled={isLoading || isAuthenticated}
+                onFocus={() => setStatusError('')}
               />
+              {!!statusError && (
+                <Box
+                  color="red.500"
+                  fontSize="sm"
+                  lineHeight="normal"
+                  marginTop="8px !important"
+                >
+                  {statusError}
+                </Box>
+              )}
             </Stack>
 
-            {/* <Link href="/dashboard" passHref> */}
             <Button
               colorScheme="pink"
               mt="6"
@@ -81,7 +94,6 @@ export default function Home() {
             >
               Entrar
             </Button>
-            {/* </Link> */}
           </Flex>
         )}
       </Flex>
