@@ -16,7 +16,8 @@ A aplicação conta com um CRUD de usuários, uma página com gráficos que repr
 
 ## 💻 Preview:
 
-https://user-images.githubusercontent.com/50181942/149679426-c209faac-ba7c-4e2c-9e4b-667389234cb2.mp4
+https://user-images.githubusercontent.com/50181942/153320338-c835af89-672e-4609-b0f2-e5095d0a566d.mp4
+
 
 ## 👷  Executando o projeto
 
