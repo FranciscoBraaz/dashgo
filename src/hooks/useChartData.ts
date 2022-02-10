@@ -80,5 +80,7 @@ export async function getChartData(): Promise<GetChartData> {
 }
 
 export function useChartData() {
-  return useQuery('users', () => getChartData());
+  return useQuery('users', () => getChartData(), {
+    staleTime: 1000 * 10, // 10 segundos
+  });
 }
