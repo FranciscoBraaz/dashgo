@@ -26,6 +26,15 @@ const createUserSchema = yup.object().shape({
     .oneOf([null, yup.ref('password')], 'Senhas diferentes'),
 });
 
+const editUserSchema = yup.object().shape({
+  name: yup.string().required('Nome obrigatório'),
+  email: yup.string().required('E-mail obrigatório').email('E-mail inválido'),
+  password: yup.string(),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([null, yup.ref('password')], 'Senhas diferentes'),
+});
+
 type CreateUserFormData = {
   email: string;
   name: string;
@@ -33,9 +42,16 @@ type CreateUserFormData = {
   passwordConfirmation: string;
 };
 
+type EditUserFormData = {
+  email: string;
+  name: string;
+  password?: string;
+  passwordConfirmation?: string;
+};
+
 interface FormProps {
-  handleCallback: SubmitHandler<CreateUserFormData>;
-  initialValues?: CreateUserFormData;
+  handleCallback: SubmitHandler<CreateUserFormData | EditUserFormData>;
+  initialValues?: CreateUserFormData | EditUserFormData;
   isEdit?: boolean;
 }
 
@@ -47,7 +63,7 @@ export function Form({
   const [loading, setLoading] = useState(true);
   const [firstRender, setFirstRender] = useState(true);
   const { register, handleSubmit, formState, reset } = useForm({
-    resolver: yupResolver(createUserSchema),
+    resolver: yupResolver(isEdit ? editUserSchema : createUserSchema),
     defaultValues: isEdit
       ? {
           name: initialValues?.name,
