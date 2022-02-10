@@ -1,6 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
-import { Header } from '../../components/Header';
 import { Sidebar } from '../../components/Sidebar';
 import { SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
@@ -11,6 +10,10 @@ import { Form } from '../../components/Form';
 import { GetServerSideProps } from 'next';
 import { requireAuthentication } from '../../utils/requireAuthentication';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+const Header = dynamic(() => import('../../components/Header'), {
+  ssr: false,
+});
 
 type CreateUserFormData = {
   email: string;

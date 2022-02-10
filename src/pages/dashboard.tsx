@@ -3,26 +3,17 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React, { useEffect, useRef, useState } from 'react';
-import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { useChartData } from '../hooks/useChartData';
-import { api } from '../services/api';
 import { requireAuthentication } from '../utils/requireAuthentication';
 
 const Chart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
 });
 
-interface UserData {
-  name: string;
-  email: string;
-  created_at: string;
-}
-
-type FixedData = {
-  dateMilliSeconds: number | Date;
-  amount: number;
-};
+const Header = dynamic(() => import('../components/Header'), {
+  ssr: false,
+});
 
 export default function Dashboard() {
   const { data, isLoading, isFetching, isError } = useChartData();
@@ -76,7 +67,7 @@ export default function Dashboard() {
 
       setSeries([{ name: 'Subscribes', data: data.chartSeries }]);
     }
-  }, [data, isFetching, options]);
+  }, [data]);
 
   return (
     <>
@@ -97,10 +88,10 @@ export default function Dashboard() {
             align="flex-start"
           >
             <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
-              <Text fontSize="lg" mb="4">
-                Inscritos da semana
+              <Flex align="center" mb="4">
+                <Text fontSize="lg">Inscritos da semana</Text>
                 {isLoading && <Spinner size="sm" ml="4" />}
-              </Text>
+              </Flex>
               <Chart
                 //@ts-ignore
                 options={options}
@@ -110,10 +101,11 @@ export default function Dashboard() {
               />
             </Box>
             <Box p={['6', '8']} bg="gray.800" borderRadius={8} pb="4">
-              <Text fontSize="lg" mb="4">
-                Inscritos da semana
+              <Flex align="center" mb="4">
+                <Text fontSize="lg">Inscritos da semana</Text>
                 {isLoading && <Spinner size="sm" ml="4" />}
-              </Text>
+              </Flex>
+
               <Chart
                 //@ts-ignore
                 options={options}

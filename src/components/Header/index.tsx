@@ -7,7 +7,7 @@ import { NotificationsNav } from './NotificationsNav';
 import { Profile } from './Profile';
 import { SearchBox } from './SearchBox';
 
-export function Header() {
+export default function Header() {
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,

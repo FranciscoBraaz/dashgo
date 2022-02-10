@@ -18,7 +18,8 @@ const signInSchema = yup.object().shape({
 });
 
 export default function Home() {
-  const { userLogin, isAuthenticated, isLoadingAutoLogin } = useAuth();
+  const { userLogin, isAuthenticated, isLoadingAutoLogin, isLoading } =
+    useAuth();
   const router = useRouter();
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInSchema),
@@ -75,7 +76,7 @@ export default function Home() {
               mt="6"
               type="submit"
               size="lg"
-              isLoading={formState.isSubmitting}
+              isLoading={formState.isSubmitting || isLoading}
             >
               Entrar
             </Button>

@@ -18,7 +18,6 @@ import {
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { RiAddLine, RiDeleteBinLine, RiPencilLine } from 'react-icons/ri';
-import { Header } from '../../components/Header';
 import { Pagination } from '../../components/Pagination';
 import { Sidebar } from '../../components/Sidebar';
 import { truncate } from '../../utils/truncate';
@@ -28,6 +27,10 @@ import { requireAuthentication } from '../../utils/requireAuthentication';
 import { api } from '../../services/api';
 import { queryClient } from '../../services/queryClient';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+const Header = dynamic(() => import('../../components/Header'), {
+  ssr: false,
+});
 
 export default function Users() {
   const [page, setPage] = useState(1);
