@@ -1,4 +1,10 @@
-## Dash go - Um painel administrativo com NextJS e React Query
+<h1 align="center">
+   <img src="https://i.imgur.com/F9ApP5N.png" alt="Logo" width="40px" height="40px"/> DashGo
+</h1>
+
+<h1 align="center">
+    Um painel administrativo com NextJS e React Query
+</h1>
 
 ###  🔽 Veja funcionando (utilize seu username do Github):
 [Deploy](https://dashgo-next.vercel.app/)
