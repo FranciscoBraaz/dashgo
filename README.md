@@ -35,14 +35,9 @@ https://user-images.githubusercontent.com/50181942/153320338-c835af89-672e-4609-
     # Baixe as dependências com:
     yarn install
 
-### Configurando aplicações de terceiros
-  #### Prismic CMS
- 
- - É necessário possuir uma conta no Prismic CMS e criar alguns artigos para popular a aplicação. Após a criação da conta e dos artigos, copie suas credencias e coloque-as num arquivo '.env.local'. 
-  ```
-   NEXT_PUBLIC_PRISMIC_API_ENDPOINT = Seu endpoint
-   NEXT_PUBLIC_PRISMIC_ACCESS_TOKEN = Seu token
-  ```
+#### OBS: Como é necessário ter um personal token para pegar o campo email, deve-se, portanto, criar esse token. Para isso acesse o GitHub e em seguida: Settings -> Developer settings -> Personal access tokens -> Generate new token. Após criar o personal token, entre na pasta raíz do projeto, crie um arquivo .env.local e adicione a linha:
+
+`NEXT_PUBLIC_GIT_TOKEN = "token_criado"`
 
 <br/><br/> 
 ##
