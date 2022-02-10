@@ -35,6 +35,7 @@ export default function Home() {
     const response = await userLogin(values.name);
     if (response.status === 200) {
       router.push('/dashboard');
+      console.log('oi');
     }
   };
 
@@ -76,7 +77,7 @@ export default function Home() {
               mt="6"
               type="submit"
               size="lg"
-              isLoading={formState.isSubmitting || isLoading}
+              isLoading={formState.isSubmitting || isLoading || isAuthenticated}
             >
               Entrar
             </Button>
