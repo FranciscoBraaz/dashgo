@@ -35,7 +35,6 @@ export default function Home() {
     const response = await userLogin(values.name);
     if (response.status === 200) {
       router.push('/dashboard');
-      console.log('oi');
     }
   };
 
@@ -68,6 +67,7 @@ export default function Home() {
                 type="text"
                 {...register('name')}
                 error={formState.errors.name}
+                isDisabled={isLoading || isAuthenticated}
               />
             </Stack>
 
