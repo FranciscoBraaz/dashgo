@@ -36,8 +36,10 @@ export default function Home() {
     const response = await userLogin(values.name);
     if (response.status === 200) {
       router.push('/dashboard');
-    } else {
+    } else if (response.status === 404) {
       setStatusError('Usuário não encontrado');
+    } else {
+      setStatusError('Ops! Estamos com problemas no servidor!');
     }
   };
 
@@ -61,6 +63,8 @@ export default function Home() {
             p="8"
             borderRadius={8}
             flexDir="column"
+            mr={{ base: '1rem', sm: 'auto' }}
+            ml={{ base: '1rem', sm: 'auto' }}
             onSubmit={handleSubmit(handleSignIn)}
           >
             <Stack spacing="4">
