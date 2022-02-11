@@ -53,6 +53,5 @@ https://user-images.githubusercontent.com/50181942/153430036-834ddea5-c0a3-4af0-
 
 `NEXT_PUBLIC_GIT_TOKEN = "token_criado"`
 
-<br/><br/> 
 ##
 👨‍💻 Desenvolvido por [Francisco Braz](https://github.com/FranciscoBraaz)
