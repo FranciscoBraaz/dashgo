@@ -2,11 +2,11 @@
    <img src="https://i.imgur.com/F9ApP5N.png" alt="Logo" width="40px" height="40px"/> DashGo
 </h1>
 
-<h1 align="center">
+<h2 align="center">
     Um painel administrativo com NextJS e React Query
-</h1>
+</h2>
 
-###  🔽 Veja funcionando (utilize seu username do Github):
+##  🔽 Veja funcionando (utilize seu username do Github):
 [DashGo](https://dashgo-next.vercel.app/)
 
 ## 📖 Sobre o projeto 
@@ -26,7 +26,7 @@ A aplicação conta com um CRUD de usuários, uma página com gráficos que repr
 https://user-images.githubusercontent.com/50181942/153430036-834ddea5-c0a3-4af0-804c-d80eb60b71ab.mp4
 
 
-### 📝 Desafios propostos:
+## 📝 Desafios propostos:
 
 - [x] Integrar gráficos na página de dashboard
 - [x] Implementar login com GitHub
