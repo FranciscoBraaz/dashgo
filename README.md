@@ -6,8 +6,7 @@
     Um painel administrativo com NextJS e React Query
 </h2>
 
-##  🔽 Veja funcionando (utilize seu username do Github):
-[DashGo](https://dashgo-next.vercel.app/)
+##  🔽 Veja funcionando (utilize seu username do Github): [DashGo](https://dashgo-next.vercel.app/)
 
 ## 📖 Sobre o projeto 
 Aplicação desenvolvida com o objetivo de praticar conceitos dentro dos ecossistemas do NextJS e React Query.
@@ -50,7 +49,7 @@ https://user-images.githubusercontent.com/50181942/153430036-834ddea5-c0a3-4af0-
     # Baixe as dependências com:
     yarn install
 
-#### OBS: Como é necessário ter um personal token para pegar o campo email, deve-se, portanto, criar esse token. Para isso acesse o GitHub e em seguida: Settings -> Developer settings -> Personal access tokens -> Generate new token. Após criar o personal token, entre na pasta raíz do projeto, crie um arquivo .env.local e adicione a linha:
+### OBS: Como é necessário ter um personal token para pegar o campo email, deve-se, portanto, criar esse token. Para isso acesse o GitHub e em seguida: Settings -> Developer settings -> Personal access tokens -> Generate new token. Após criar o personal token, entre na pasta raíz do projeto, crie um arquivo .env.local e adicione a linha:
 
 `NEXT_PUBLIC_GIT_TOKEN = "token_criado"`
 
