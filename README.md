@@ -7,8 +7,10 @@
 </h1>
 
 ###  🔽 Veja funcionando (utilize seu username do Github):
-[Deploy](https://dashgo-next.vercel.app/)
-#### Aplicação desenvolvida com o objetivo de praticar conceitos dentro dos ecossistemas do NextJS e React Query. 
+[DashGo](https://dashgo-next.vercel.app/)
+
+## 📖 Sobre o projeto 
+Aplicação desenvolvida com o objetivo de praticar conceitos dentro dos ecossistemas do NextJS e React Query.
 Consiste num painel administrativo, que utiliza o React Query para controlar o estado do servidor e MirageJS para simular uma API. 
 A aplicação conta com um CRUD de usuários, uma página com gráficos que representam o volume de usuários cadastrados e login com GitHub.
 
@@ -24,7 +26,7 @@ A aplicação conta com um CRUD de usuários, uma página com gráficos que repr
 https://user-images.githubusercontent.com/50181942/153430036-834ddea5-c0a3-4af0-804c-d80eb60b71ab.mp4
 
 
-### 🛠️ Desafios propostos:
+### 📝 Desafios propostos:
 
 - [x] Integrar gráficos na página de dashboard
 - [x] Implementar login com GitHub
