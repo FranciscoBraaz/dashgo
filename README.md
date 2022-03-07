@@ -9,7 +9,7 @@
 ##  🔽 Veja funcionando (utilize seu username do Github): [DashGo](https://dashgo-next.vercel.app/)
 
 ## 📖 Sobre o projeto 
-Aplicação desenvolvida com o objetivo de praticar conceitos dentro dos ecossistemas do NextJS e React Query.
+Aplicação desenvolvida com o objetivo de praticar conceitos envolvendo o NextJS, Chacka-ui e React Query.
 Consiste num painel administrativo, que utiliza o React Query para controlar o estado do servidor e MirageJS para simular uma API. 
 A aplicação conta com um CRUD de usuários, uma página com gráficos que representam o volume de usuários cadastrados e login com GitHub.
 
