@@ -3,7 +3,7 @@
 </h1>
 
 <h2 align="center">
-    Um painel administrativo com NextJS, Chakra-ui e React Query
+    Um painel administrativo com NextJS, Chakra UI e React Query
 </h2>
 
 ##  🔽 Veja funcionando (utilize seu username do Github): [DashGo](https://dashgo-next.vercel.app/)
